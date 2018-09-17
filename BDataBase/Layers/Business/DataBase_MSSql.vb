@@ -49,8 +49,8 @@ Friend Class DataBase_MSSql
 
 #Region "Constructor"
     Friend Sub New(ByVal p_strServer As String, ByVal p_strDataBase As String, ByVal p_strUser As String,
-                    ByVal p_strPassword As String, p_intId As Integer)
-        Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId)
+                    ByVal p_strPassword As String, p_intId As Integer, p_intConnectionTimeout As Integer)
+        Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
     End Sub
 #End Region
 
@@ -74,7 +74,7 @@ Friend Class DataBase_MSSql
             End If
 
             strConnection = "Server = '" & strServer & "'; Initial Catalog = '" & strDataBase & "'; User Id = '" &
-                         strUser & "'; Password = '" & strPassword & "'; Connect Timeout= " & CNS_TIMEOUTCONNECT
+                         strUser & "'; Password = '" & strPassword & "'; Connect Timeout= " & intConnectionTimeout
 
             'Create Connection
             objSqlConnection = New SqlClient.SqlConnection(strConnection)

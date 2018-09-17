@@ -52,12 +52,13 @@ Friend MustInherit Class absDataBase
     Protected strDataBase As String
     Protected strServer As String
     Protected blnBeginTransaction As Boolean
+    Protected intConnectionTimeout As Integer
 
 #End Region
 
 #Region "Constructor"
     Friend Sub New(ByVal p_strServer As String, ByVal p_strDataBase As String, ByVal p_strUser As String,
-                    ByVal p_strPassword As String, p_intId As Integer)
+                    ByVal p_strPassword As String, p_intId As Integer, p_intConnetionTimeout As Integer)
 
         Try
             strServer = p_strServer
@@ -66,6 +67,7 @@ Friend MustInherit Class absDataBase
             strPassword = p_strPassword
             blnBeginTransaction = False
             intId = p_intId
+            intConnectionTimeout = p_intConnetionTimeout
 
             Call sbOpen()
 

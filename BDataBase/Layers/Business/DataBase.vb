@@ -55,7 +55,7 @@ Public Class DataBase
 #End Region
 
 #Region "Functions"
-    Public Shared Function fnOpenConnection(p_strServer As String, p_strDataBase As String, p_strUser As String, p_strPassword As String, p_intId As Integer, p_enmType As enmDataBaseType) As IDataBase
+    Public Shared Function fnOpenConnection(p_strServer As String, p_strDataBase As String, p_strUser As String, p_strPassword As String, p_intId As Integer, p_enmType As enmDataBaseType, p_intConnectionTimeout As Integer) As IDataBase
 
         Dim objReturn As IDataBase
 
@@ -75,11 +75,11 @@ Public Class DataBase
 
                 Select Case p_enmType
                     Case enmDataBaseType.MsSql
-                        objReturn = New DataBase_MSSql(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId)
+                        objReturn = New DataBase_MSSql(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
                     Case enmDataBaseType.MySql
-                        objReturn = New DataBase_MySql(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId)
+                        objReturn = New DataBase_MySql(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
                     Case enmDataBaseType.SqLite
-                        objReturn = New DataBase_Sqlite(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId)
+                        objReturn = New DataBase_Sqlite(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
                     Case Else
                         Throw New Exception("Invalid Data Base Type.")
                 End Select
@@ -95,9 +95,25 @@ Public Class DataBase
         End Try
     End Function
 
+    Public Shared Function fnOpenConnection(p_strServer As String, p_strDataBase As String, p_strUser As String, p_strPassword As String, p_intId As Integer, p_enmType As enmDataBaseType) As IDataBase
+        Try
+            Return fnOpenConnection(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_enmType, 31536000)
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
     Public Shared Function fnOpenConnection(p_strServer As String, p_strDataBase As String, p_strUser As String, p_strPassword As String, p_enmType As enmDataBaseType) As IDataBase
         Try
-            Return fnOpenConnection(p_strServer, p_strDataBase, p_strUser, p_strPassword, 0, p_enmType)
+            Return fnOpenConnection(p_strServer, p_strDataBase, p_strUser, p_strPassword, 0, p_enmType, 31536000)
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+    Public Shared Function fnOpenConnection(p_strServer As String, p_strDataBase As String, p_strUser As String, p_strPassword As String, p_enmType As enmDataBaseType, p_intConnectionTimeout As Integer) As IDataBase
+        Try
+            Return fnOpenConnection(p_strServer, p_strDataBase, p_strUser, p_strPassword, 0, p_enmType, p_intConnectionTimeout)
         Catch ex As Exception
             Throw
         End Try
@@ -105,7 +121,7 @@ Public Class DataBase
 
     Public Shared Function fnOpenConnection(p_objconfig As clsConfiguration, p_intId As Integer) As IDataBase
         Try
-            Return fnOpenConnection(p_objconfig.Server, p_objconfig.DataBase, p_objconfig.User, p_objconfig.Password, p_intId, p_objconfig.Type)
+            Return fnOpenConnection(p_objconfig.Server, p_objconfig.DataBase, p_objconfig.User, p_objconfig.Password, p_intId, p_objconfig.Type, p_objconfig.ConnetionTimeout)
         Catch ex As Exception
             Throw
         End Try

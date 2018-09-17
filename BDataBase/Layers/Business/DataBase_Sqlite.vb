@@ -52,8 +52,8 @@ Friend Class DataBase_Sqlite
 
 #Region "Constructor"
     Friend Sub New(ByVal p_strServer As String, ByVal p_strDataBase As String, ByVal p_strUser As String,
-                    ByVal p_strPassword As String, p_intId As Integer)
-        Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId)
+                    ByVal p_strPassword As String, p_intId As Integer, p_intConnectionTimeout As Integer)
+        Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
     End Sub
 #End Region
 

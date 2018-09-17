@@ -1,4 +1,6 @@
-﻿Public Class Form1
+﻿Imports BDataBase
+
+Public Class Form1
     Private Sub btnTestMysql_Click(sender As Object, e As EventArgs) Handles btnTestMysql.Click
 
         Dim objConnection As BDataBase.IDataBase
@@ -22,10 +24,20 @@
 
         Dim objConnection As BDataBase.IDataBase
         Dim objReturn As DataSet
+        Dim objConnectionConfig As clsConfiguration
 
         Try
 
-            objConnection = BDataBase.DataBase.fnOpenConnection("127.0.0.1", "testDB", "user", "password", BDataBase.DataBase.enmDataBaseType.MsSql)
+
+            objConnectionConfig = New clsConfiguration()
+            objConnectionConfig.Server = "127.0.0.1"
+            objConnectionConfig.DataBase = "AdventureWorks2017"
+            objConnectionConfig.User = "testUser"
+            objConnectionConfig.Password = "sabado25"
+            objConnectionConfig.Type = DataBase.enmDataBaseType.MsSql
+            objConnectionConfig.ConnetionTimeout = 10
+
+            objConnection = BDataBase.DataBase.fnOpenConnection(objConnectionConfig)
 
             objReturn = objConnection.fnExecute(txtInput.Text)
 
@@ -137,7 +149,7 @@
             objReturn = objConnection.fnGetTableInfo(txtInput.Text)
 
             grdResult.DataSource = Nothing
-            grdResult.DataSource = objReturn.columns
+            grdResult.DataSource = objReturn.Columns
 
         Catch ex As Exception
             MsgBox(ex.Message)

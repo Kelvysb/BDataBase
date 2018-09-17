@@ -420,22 +420,6 @@ Public Class clsIndexInfo
         End Try
     End Function
 
-    Public Function fnSerialize() As String
-
-        Dim strReturn As String
-
-        Try
-
-
-
-
-            Return strReturn
-
-        Catch ex As Exception
-            Throw
-        End Try
-    End Function
-
     Public Function serialize() As String
         Try
             Return Json.JsonConvert.SerializeObject(Me)

@@ -53,6 +53,7 @@ Public Class clsConfiguration
     Private strUser As String
     Private strPassword As String
     Private intType As DataBase.enmDataBaseType
+    Private intConnectionTimeout As Integer
 #End Region
 
 #Region "Contrutores"
@@ -254,6 +255,22 @@ Public Class clsConfiguration
         End Get
         Set(ByVal p_intType As DataBase.enmDataBaseType)
             intType = p_intType
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Connection timeout
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    <JsonProperty("CONNETIONTIMEOUT")>
+    Public Property ConnetionTimeout() As Integer
+        Get
+            Return intConnectionTimeout
+        End Get
+        Set(ByVal value As Integer)
+            intConnectionTimeout = value
         End Set
     End Property
 
