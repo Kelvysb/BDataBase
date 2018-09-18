@@ -175,6 +175,58 @@ Public Class Form1
         End Try
 
     End Sub
+
+    Private Sub btnTestOracle_Click(sender As Object, e As EventArgs) Handles btnTestOracle.Click
+        Dim objConnection As BDataBase.IDataBase
+        Dim objReturn As DataSet
+
+        Try
+
+            objConnection = BDataBase.DataBase.fnOpenConnection("127.0.0.1:1521", "xe", "SYSTEM", "sabado25", 0, BDataBase.DataBase.enmDataBaseType.Oracle)
+
+            objReturn = objConnection.fnExecute(txtInput.Text)
+
+            grdResult.DataSource = Nothing
+            grdResult.DataSource = objReturn.Tables(0)
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnTextOracleNonQ_Click(sender As Object, e As EventArgs) Handles btnTextOracleNonQ.Click
+        Dim objConnection As BDataBase.IDataBase
+
+        Try
+
+            objConnection = BDataBase.DataBase.fnOpenConnection("127.0.0.1:1521", "xe", "SYSTEM", "sabado25", 0, BDataBase.DataBase.enmDataBaseType.Oracle)
+
+            objConnection.sbExecute(txtInput.Text)
+
+            objConnection.sbCommit()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnTestOracleTableInfo_Click(sender As Object, e As EventArgs) Handles btnTestOracleTableInfo.Click
+        Dim objConnection As BDataBase.IDataBase
+        Dim objReturn As BDataBase.clsTableInfo
+
+        Try
+
+            objConnection = BDataBase.DataBase.fnOpenConnection("127.0.0.1:1521", "xe", "SYSTEM", "sabado25", 0, BDataBase.DataBase.enmDataBaseType.Oracle)
+
+            objReturn = objConnection.fnGetTableInfo("TBTEST")
+
+            grdResult.DataSource = Nothing
+            grdResult.DataSource = objReturn.Columns
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 End Class
 
 

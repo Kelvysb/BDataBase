@@ -266,15 +266,15 @@ Friend MustInherit Class absDataBase
             End If
 
             Select Case strAuxInput.Trim.ToUpper
-                Case "TEXT", "BLOOB", "VARCHAR", "CHAR", "NCHAR", "TINYBLOB", "TINYTEXT", "MEDIUMBLOB", "MEDIUMTEXT", "LONGBLOB", "LONGTEXT", "ENUM"
+                Case "RAW", "LONGRAW", "VARCHAR", "CHAR", "NCHAR", "LONG", "NVARCHAR2", "NCHAR2", "BLOB", "CLOB", "NCLOB"
                     enmReturn = enm_ColumnType.Text
-                Case "INTEGER", "INT", "TINYINT", "SMALLINT", "MEDIUMINT", "BIGINT"
+                Case "INTEGER", "INT", "SMALLINT"
                     enmReturn = enm_ColumnType.Int
-                Case "REAL", "FLOAT", "DOUBLE", "DECIMAL"
+                Case "NUMBER", "NUMERIC", "FLOAT", "DEC", "DECIMAL", "REAL", "DOUBLE PRESISION"
                     enmReturn = enm_ColumnType.Number
                 Case "BOOLEAN"
                     enmReturn = enm_ColumnType.Bool
-                Case "DATE", "DATETIME", "TIMESTAMP", "TIME", "YEAR"
+                Case "DATE", "TIMESTAMP"
                     enmReturn = enm_ColumnType.DateTime
             End Select
 
