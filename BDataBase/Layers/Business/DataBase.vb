@@ -42,6 +42,7 @@ Public Class DataBase
         MySql
         SqLite
         Oracle
+        Postgre
     End Enum
 #End Region
 
@@ -83,6 +84,8 @@ Public Class DataBase
                         objReturn = New DataBase_Sqlite(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
                     Case enmDataBaseType.Oracle
                         objReturn = New DataBase_Oracle(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
+                    Case enmDataBaseType.Postgre
+                        objReturn = New DataBase_Postgre(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
                     Case Else
                         Throw New Exception("Invalid Data Base Type.")
                 End Select
