@@ -8,7 +8,7 @@ Public Class Form1
 
         Try
 
-            objConnection = BDataBase.DataBase.fnOpenConnection("127.0.0.1", "ctr", "user", "password", 0, BDataBase.DataBase.enmDataBaseType.MySql)
+            objConnection = BDataBase.DataBase.fnOpenConnection("127.0.0.1", "testdatabase", "user", "password", 0, BDataBase.DataBase.enmDataBaseType.MySql)
 
             objReturn = objConnection.fnExecute(Of clsTeste)(txtInput.Text)
 
@@ -222,6 +222,39 @@ Public Class Form1
 
             grdResult.DataSource = Nothing
             grdResult.DataSource = objReturn.Columns
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub msSqlParameters_Click(sender As Object, e As EventArgs) Handles msSqlParameters.Click
+
+        Dim objConnection As BDataBase.IDataBase
+        Dim objReturn As DataSet
+        Dim objConnectionConfig As clsConfiguration
+        Dim objParameters As List(Of clsDataBaseParametes)
+
+        Try
+
+
+            objConnectionConfig = New clsConfiguration()
+            objConnectionConfig.Server = "127.0.0.1"
+            objConnectionConfig.DataBase = "AdventureWorks2016"
+            objConnectionConfig.User = "testUser"
+            objConnectionConfig.Password = "sabado25"
+            objConnectionConfig.Type = DataBase.enmDataBaseType.MsSql
+            objConnectionConfig.ConnetionTimeout = 10
+
+            objConnection = BDataBase.DataBase.fnOpenConnection(objConnectionConfig)
+
+            objParameters = New List(Of clsDataBaseParametes)
+            objParameters.Add(New clsDataBaseParametes("FirstName", "ken"))
+
+            objReturn = objConnection.fnExecute(txtInput.Text, objParameters)
+
+            grdResult.DataSource = Nothing
+            grdResult.DataSource = objReturn.Tables(0)
 
         Catch ex As Exception
             MsgBox(ex.Message)

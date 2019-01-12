@@ -1,10 +1,9 @@
 ﻿
-
 'Copyright 2018 Kelvys B. Pantaleão
 
 'This file is part of BDataBase
 
-'BGlobal Is free software: you can redistribute it And/Or modify
+'BDataBase Is free software: you can redistribute it And/Or modify
 'it under the terms Of the GNU General Public License As published by
 'the Free Software Foundation, either version 3 Of the License, Or
 '(at your option) any later version.
@@ -20,7 +19,7 @@
 
 'Este arquivo é parte Do programa BDataBase
 
-'BGlobal é um software livre; você pode redistribuí-lo e/ou 
+'BDataBase é um software livre; você pode redistribuí-lo e/ou 
 'modificá-lo dentro dos termos da Licença Pública Geral GNU como 
 'publicada pela Fundação Do Software Livre (FSF); na versão 3 da 
 'Licença, ou(a seu critério) qualquer versão posterior.

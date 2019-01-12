@@ -36,6 +36,7 @@ Partial Class Form1
         Me.btnTestOracleTableInfo = New System.Windows.Forms.Button()
         Me.btnTextOracleNonQ = New System.Windows.Forms.Button()
         Me.btnTestOracle = New System.Windows.Forms.Button()
+        Me.msSqlParameters = New System.Windows.Forms.Button()
         CType(Me.grdResult, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -50,7 +51,7 @@ Partial Class Form1
         '
         'txtInput
         '
-        Me.txtInput.Location = New System.Drawing.Point(12, 152)
+        Me.txtInput.Location = New System.Drawing.Point(12, 210)
         Me.txtInput.Multiline = True
         Me.txtInput.Name = "txtInput"
         Me.txtInput.Size = New System.Drawing.Size(582, 214)
@@ -62,7 +63,7 @@ Partial Class Form1
         Me.grdResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.grdResult.Location = New System.Drawing.Point(600, 12)
         Me.grdResult.Name = "grdResult"
-        Me.grdResult.Size = New System.Drawing.Size(398, 354)
+        Me.grdResult.Size = New System.Drawing.Size(398, 412)
         Me.grdResult.TabIndex = 2
         '
         'btnTestMsSql
@@ -164,11 +165,21 @@ Partial Class Form1
         Me.btnTestOracle.Text = "Test Oracle"
         Me.btnTestOracle.UseVisualStyleBackColor = True
         '
+        'msSqlParameters
+        '
+        Me.msSqlParameters.Location = New System.Drawing.Point(12, 150)
+        Me.msSqlParameters.Name = "msSqlParameters"
+        Me.msSqlParameters.Size = New System.Drawing.Size(141, 40)
+        Me.msSqlParameters.TabIndex = 14
+        Me.msSqlParameters.Text = "Test MySql Parameters"
+        Me.msSqlParameters.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1005, 378)
+        Me.ClientSize = New System.Drawing.Size(1005, 436)
+        Me.Controls.Add(Me.msSqlParameters)
         Me.Controls.Add(Me.btnTestOracleTableInfo)
         Me.Controls.Add(Me.btnTextOracleNonQ)
         Me.Controls.Add(Me.btnTestOracle)
@@ -205,4 +216,5 @@ Partial Class Form1
     Friend WithEvents btnTestOracleTableInfo As Button
     Friend WithEvents btnTextOracleNonQ As Button
     Friend WithEvents btnTestOracle As Button
+    Friend WithEvents msSqlParameters As Button
 End Class
