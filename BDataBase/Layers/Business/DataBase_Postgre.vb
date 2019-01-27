@@ -291,6 +291,8 @@ Friend Class DataBase_Postgre
 
             Loop
 
+        Catch ex As DataBaseException
+            Throw ex
         Catch ex As NpgsqlException
             Throw New DataBaseException(ex)
         Catch ex As Exception
@@ -391,6 +393,8 @@ Friend Class DataBase_Postgre
 
             Return objDataSet
 
+        Catch ex As DataBaseException
+            Throw ex
         Catch ex As NpgsqlException
             Throw New DataBaseException(ex)
         Catch ex As Exception

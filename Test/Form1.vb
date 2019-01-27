@@ -89,13 +89,15 @@ Public Class Form1
 
         Try
 
-            objConnection = BDataBase.DataBase.fnOpenConnection("..\..\testedb2", "testedb2", "", "", BDataBase.DataBase.enmDataBaseType.SqLite)
+            objConnection = BDataBase.DataBase.fnOpenConnection("..\..\testedb.db", "testedb.db", "", "", BDataBase.DataBase.enmDataBaseType.SqLite)
 
             objReturn = objConnection.fnExecute(Of clsTeste)(txtInput.Text)
 
             grdResult.DataSource = Nothing
             grdResult.DataSource = objReturn
 
+        Catch exdb As DataBaseException
+            MsgBox(exdb.Message)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -106,7 +108,7 @@ Public Class Form1
 
         Try
 
-            objConnection = BDataBase.DataBase.fnOpenConnection("..\..\testedb1.db", "testedb1.db", "", "", BDataBase.DataBase.enmDataBaseType.SqLite)
+            objConnection = BDataBase.DataBase.fnOpenConnection("..\..\testedb.db", "testedb.db", "", "", BDataBase.DataBase.enmDataBaseType.SqLite)
 
             objConnection.sbExecute(txtInput.Text)
 

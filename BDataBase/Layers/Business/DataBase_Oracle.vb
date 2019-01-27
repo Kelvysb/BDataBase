@@ -271,6 +271,8 @@ Friend Class DataBase_Oracle
 
             Loop
 
+        Catch ex As DataBaseException
+            Throw ex
         Catch ex As OracleException
             Throw New DataBaseException(ex)
         Catch ex As Exception
@@ -371,6 +373,8 @@ Friend Class DataBase_Oracle
 
             Return objDataSet
 
+        Catch ex As DataBaseException
+            Throw ex
         Catch ex As OracleException
             Throw New DataBaseException(ex)
         Catch ex As Exception

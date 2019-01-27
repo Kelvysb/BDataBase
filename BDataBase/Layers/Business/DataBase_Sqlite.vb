@@ -262,6 +262,8 @@ Friend Class DataBase_Sqlite
 
             Loop
 
+        Catch ex As DataBaseException
+            Throw ex
         Catch ex As SQLiteException
             Throw New DataBaseException(ex)
         Catch ex As Exception
@@ -358,6 +360,8 @@ Friend Class DataBase_Sqlite
 
             Return objDataSet
 
+        Catch ex As DataBaseException
+            Throw ex
         Catch ex As SQLiteException
             Throw New DataBaseException(ex)
         Catch ex As Exception

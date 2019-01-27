@@ -257,6 +257,8 @@ Friend Class DataBase_MSSql
 
             Loop
 
+        Catch ex As DataBaseException
+            Throw ex
         Catch ex As SqlClient.SqlException
             Throw New DataBaseException(ex)
         Catch ex As Exception
@@ -354,6 +356,8 @@ Friend Class DataBase_MSSql
 
             Return objDataSet
 
+        Catch ex As DataBaseException
+            Throw ex
         Catch ex As SqlClient.SqlException
             Throw New DataBaseException(ex)
         Catch ex As Exception
