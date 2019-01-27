@@ -89,7 +89,7 @@ Public Class Form1
 
         Try
 
-            objConnection = BDataBase.DataBase.fnOpenConnection("..\..\testedb", "testedb", "", "", BDataBase.DataBase.enmDataBaseType.SqLite)
+            objConnection = BDataBase.DataBase.fnOpenConnection("..\..\testedb2", "testedb2", "", "", BDataBase.DataBase.enmDataBaseType.SqLite)
 
             objReturn = objConnection.fnExecute(Of clsTeste)(txtInput.Text)
 
@@ -106,7 +106,7 @@ Public Class Form1
 
         Try
 
-            objConnection = BDataBase.DataBase.fnOpenConnection("..\..\testedb", "testedb", "", "", BDataBase.DataBase.enmDataBaseType.SqLite)
+            objConnection = BDataBase.DataBase.fnOpenConnection("..\..\testedb1.db", "testedb1.db", "", "", BDataBase.DataBase.enmDataBaseType.SqLite)
 
             objConnection.sbExecute(txtInput.Text)
 
@@ -249,7 +249,8 @@ Public Class Form1
             objConnection = BDataBase.DataBase.fnOpenConnection(objConnectionConfig)
 
             objParameters = New List(Of clsDataBaseParametes)
-            objParameters.Add(New clsDataBaseParametes("FirstName", "ken"))
+            objParameters.Add(New clsDataBaseParametes("FirstName1", "ken"))
+            objParameters.Add(New clsDataBaseParametes("FirstName2", "david"))
 
             objReturn = objConnection.fnExecute(txtInput.Text, objParameters)
 

@@ -77,7 +77,7 @@ Friend Class DataBase_Sqlite
             End If
 
             If File.Exists(strServer) = False Then
-                Throw New DataBaseException(DataBaseException.enmDataBaseExeptionCode.Erro, "Data base file not found: " & strServer)
+                SQLiteConnection.CreateFile(strServer)
             End If
 
             strConnection = "Data Source=" & strServer & ";Version=3;"
@@ -218,7 +218,7 @@ Friend Class DataBase_Sqlite
 
                     intReturn = objSqlCommand.ExecuteNonQuery()
 
-                    If intReturn = 0 Then
+                    If intReturn = 0 AndAlso Not p_strCommand.Trim.ToUpper.StartsWith("CREATE") AndAlso Not p_strCommand.Trim.ToUpper.StartsWith("ALTER") Then
                         Throw New DataBaseException(DataBaseException.enmDataBaseExeptionCode.NotExists, "Not Exists")
                     End If
 
