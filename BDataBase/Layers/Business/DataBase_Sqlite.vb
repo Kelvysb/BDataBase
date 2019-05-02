@@ -76,6 +76,14 @@ Friend Class DataBase_Sqlite
                 End If
             End If
 
+            If strServer.EndsWith(strDataBase) = False Then
+                If strServer.EndsWith("\") Then
+                    strServer = strServer & strDataBase
+                Else
+                    strServer = strServer & "\" & strDataBase
+                End If
+            End If
+
             If File.Exists(strServer) = False Then
                 SQLiteConnection.CreateFile(strServer)
             End If
