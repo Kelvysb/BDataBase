@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>kelvysb.BDataBase</id>
+    <version>1.1.0.2</version>
+    <authors>Kelvys Boniek Pantaleão</authors>
+    <owners>Kelvys Boniek Pantaleão</owners>
+    <licenseUrl>https://github.com/Kelvysb/BDataBase/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Kelvysb/BDataBase</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Multi database connector, MsSql, MySql, Sqlite, Postgre and Oracle</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>database connector MsSql Sqlite postgre oracle mysql</tags>
+    <dependencies>
+      <dependency id="EntityFramework" version="6.0.0" />
+      <dependency id="MySql.Data" version="6.9.9" />
+      <dependency id="Newtonsoft.Json" version="11.0.2" />
+      <dependency id="Npgsql" version="4.0.4" />
+      <dependency id="Oracle.ManagedDataAccess" version="18.3.0" />
+      <dependency id="System.Data.SQLite" version="1.0.104.0" />
+      <dependency id="System.Data.SQLite.Core" version="1.0.104.0" />
+      <dependency id="System.Data.SQLite.EF6" version="1.0.104.0" />
+      <dependency id="System.Data.SQLite.Linq" version="1.0.104.0" />
+      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.0" />
+      <dependency id="System.Threading.Tasks.Extensions" version="4.5.1" />
+      <dependency id="System.ValueTuple" version="4.5.0" />
+    </dependencies>   
+  </metadata>
+  <files>
+    <file src="Compiled\BDataBase.dll" target="lib\BDataBase.dll" />
+  </files>
+</package>
