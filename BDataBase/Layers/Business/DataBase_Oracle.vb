@@ -52,6 +52,14 @@ Friend Class DataBase_Oracle
                     ByVal p_strPassword As String, p_intId As Integer, p_intConnectionTimeout As Integer)
         Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
     End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String)
+        Call MyBase.New(p_strConnectionString)
+    End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String, p_intId As Integer)
+        Call MyBase.New(p_strConnectionString, p_intId)
+    End Sub
 #End Region
 
 #Region "Functions and Subroutines"
@@ -73,8 +81,15 @@ Friend Class DataBase_Oracle
                 End If
             End If
 
-            strConnection = "DATA SOURCE=" & strServer & "/" & strDataBase & ";USER ID=" &
+
+            If strConnectionString.Equals("") Then
+                strConnection = "DATA SOURCE=" & strServer & "/" & strDataBase & ";USER ID=" &
                          strUser & ";PASSWORD=" & strPassword & ";CONNECTION TIMEOUT=" & intConnectionTimeout
+            Else
+                strConnection = strConnectionString
+            End If
+
+
 
             'Create Connection
             objSqlConnection = New OracleConnection(strConnection)
@@ -86,6 +101,7 @@ Friend Class DataBase_Oracle
             Throw New DataBaseException(ex)
         End Try
     End Sub
+
     Public Overrides Sub sbClose() Implements IDataBase.sbClose
         Try
             If objSqlConnection Is Nothing = False Then

@@ -50,6 +50,7 @@ Friend MustInherit Class absDataBase
     Protected strUser As String
     Protected strDataBase As String
     Protected strServer As String
+    Protected strConnectionString As String
     Protected blnBeginTransaction As Boolean
     Protected intConnectionTimeout As Integer
 
@@ -67,9 +68,38 @@ Friend MustInherit Class absDataBase
             blnBeginTransaction = False
             intId = p_intId
             intConnectionTimeout = p_intConnetionTimeout
-
+            strConnectionString = ""
             Call sbOpen()
 
+        Catch ex As SqlClient.SqlException
+            Throw New DataBaseException(ex)
+        Catch ex As Exception
+            Throw New DataBaseException(ex)
+        End Try
+
+    End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String)
+
+        Try
+            blnBeginTransaction = False
+            strConnectionString = p_strConnectionString
+            Call sbOpen()
+        Catch ex As SqlClient.SqlException
+            Throw New DataBaseException(ex)
+        Catch ex As Exception
+            Throw New DataBaseException(ex)
+        End Try
+
+    End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String, p_intId As Integer)
+
+        Try
+            intId = p_intId
+            blnBeginTransaction = False
+            strConnectionString = p_strConnectionString
+            Call sbOpen()
         Catch ex As SqlClient.SqlException
             Throw New DataBaseException(ex)
         Catch ex As Exception

@@ -57,6 +57,83 @@ Public Class DataBase
 #End Region
 
 #Region "Functions"
+
+    Public Shared Function fnOpenConnection(p_strConnectionString As String, p_enmType As enmDataBaseType) As IDataBase
+
+        Dim objReturn As IDataBase
+
+        Try
+
+
+            Select Case p_enmType
+                Case enmDataBaseType.MsSql
+                    objReturn = New DataBase_MSSql(p_strConnectionString)
+                Case enmDataBaseType.MySql
+                    objReturn = New DataBase_MySql(p_strConnectionString)
+                Case enmDataBaseType.SqLite
+                    objReturn = New DataBase_Sqlite(p_strConnectionString)
+                Case enmDataBaseType.Oracle
+                    objReturn = New DataBase_Oracle(p_strConnectionString)
+                Case enmDataBaseType.Postgre
+                    objReturn = New DataBase_Postgre(p_strConnectionString)
+                Case Else
+                    Throw New Exception("Invalid Data Base Type.")
+            End Select
+
+            objConnections.Add(objReturn)
+
+
+            Return objReturn
+
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
+    Public Shared Function fnOpenConnection(p_strConnectionString As String, p_intId As Integer, p_enmType As enmDataBaseType) As IDataBase
+
+        Dim objReturn As IDataBase
+
+        Try
+
+            If p_intId = 0 Then
+                If objConnections.Count > 0 Then
+                    p_intId = objConnections.Max(Function(conn As IDataBase) conn.ConnectionId) + 1
+                Else
+                    p_intId = 1
+                End If
+            End If
+
+            objReturn = objConnections.Find(Function(Conn As IDataBase) Conn.ConnectionId = p_intId)
+
+            If objReturn Is Nothing Then
+
+                Select Case p_enmType
+                    Case enmDataBaseType.MsSql
+                        objReturn = New DataBase_MSSql(p_strConnectionString, p_intId)
+                    Case enmDataBaseType.MySql
+                        objReturn = New DataBase_MySql(p_strConnectionString, p_intId)
+                    Case enmDataBaseType.SqLite
+                        objReturn = New DataBase_Sqlite(p_strConnectionString, p_intId)
+                    Case enmDataBaseType.Oracle
+                        objReturn = New DataBase_Oracle(p_strConnectionString, p_intId)
+                    Case enmDataBaseType.Postgre
+                        objReturn = New DataBase_Postgre(p_strConnectionString, p_intId)
+                    Case Else
+                        Throw New Exception("Invalid Data Base Type.")
+                End Select
+
+                objConnections.Add(objReturn)
+
+            End If
+
+            Return objReturn
+
+        Catch ex As Exception
+            Throw
+        End Try
+    End Function
+
     Public Shared Function fnOpenConnection(p_strServer As String, p_strDataBase As String, p_strUser As String, p_strPassword As String, p_intId As Integer, p_enmType As enmDataBaseType, p_intConnectionTimeout As Integer) As IDataBase
 
         Dim objReturn As IDataBase

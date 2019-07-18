@@ -55,6 +55,14 @@ Friend Class DataBase_Sqlite
                     ByVal p_strPassword As String, p_intId As Integer, p_intConnectionTimeout As Integer)
         Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
     End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String)
+        Call MyBase.New(p_strConnectionString)
+    End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String, p_intId As Integer)
+        Call MyBase.New(p_strConnectionString, p_intId)
+    End Sub
 #End Region
 
 #Region "Functions and Subroutines"
@@ -76,19 +84,24 @@ Friend Class DataBase_Sqlite
                 End If
             End If
 
-            If strServer.EndsWith(strDataBase) = False Then
-                If strServer.EndsWith("\") Then
-                    strServer = strServer & strDataBase
-                Else
-                    strServer = strServer & "\" & strDataBase
+            If strConnectionString.Equals("") Then
+                If strServer.EndsWith(strDataBase) = False Then
+                    If strServer.EndsWith("\") Then
+                        strServer = strServer & strDataBase
+                    Else
+                        strServer = strServer & "\" & strDataBase
+                    End If
                 End If
+
+                If File.Exists(strServer) = False Then
+                    SQLiteConnection.CreateFile(strServer)
+
+                End If
+                strConnection = "Data Source=" & strServer & ";Version=3;"
+            Else
+                strConnection = strConnectionString
             End If
 
-            If File.Exists(strServer) = False Then
-                SQLiteConnection.CreateFile(strServer)
-            End If
-
-            strConnection = "Data Source=" & strServer & ";Version=3;"
 
             'Create Connection
             objSqlConnection = New SQLiteConnection(strConnection)
@@ -100,6 +113,7 @@ Friend Class DataBase_Sqlite
             Throw New DataBaseException(ex)
         End Try
     End Sub
+
     Public Overrides Sub sbClose() Implements IDataBase.sbClose
         Try
             If objSqlConnection Is Nothing = False Then

@@ -54,6 +54,14 @@ Friend Class DataBase_MySql
                     ByVal p_strPassword As String, p_intId As Integer, p_intConnectionTimeout As Integer)
         Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
     End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String)
+        Call MyBase.New(p_strConnectionString)
+    End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String, p_intId As Integer)
+        Call MyBase.New(p_strConnectionString, p_intId)
+    End Sub
 #End Region
 
 #Region "Functions and Subroutines"
@@ -77,26 +85,29 @@ Friend Class DataBase_MySql
                 End If
             End If
 
-            strAuxPort = ""
-            strAuxServer = ""
-            If strServer.Contains(",") = True Then
-                strAuxServer = strServer.Split(",")(0)
-                strAuxPort = strServer.Split(",")(1)
-            End If
+            If strConnectionString.Equals("") Then
+                strAuxPort = ""
+                strAuxServer = ""
+                If strServer.Contains(",") = True Then
+                    strAuxServer = strServer.Split(",")(0)
+                    strAuxPort = strServer.Split(",")(1)
+                End If
 
-            If strServer.Contains(":") = True And strAuxServer.Trim = "" Then
-                strAuxServer = strServer.Split(":")(0)
-                strAuxPort = strServer.Split(":")(1)
-            End If
+                If strServer.Contains(":") = True And strAuxServer.Trim = "" Then
+                    strAuxServer = strServer.Split(":")(0)
+                    strAuxPort = strServer.Split(":")(1)
+                End If
 
-            If strAuxServer.Trim = "" Then
-                strConnection = "Server = '" & strServer & "'; Initial Catalog = '" & strDataBase & "'; User Id = '" &
+                If strAuxServer.Trim = "" Then
+                    strConnection = "Server = '" & strServer & "'; Initial Catalog = '" & strDataBase & "'; User Id = '" &
                          strUser & "'; Password = '" & strPassword & "'; Connect Timeout= " & intConnectionTimeout
+                Else
+                    strConnection = "Server = '" & strAuxServer & "'; Port=" & strAuxPort & "; Initial Catalog = '" & strDataBase & "'; User Id = '" &
+                         strUser & "'; Password = '" & strPassword & "'; Connect Timeout= " & intConnectionTimeout
+                End If
             Else
-                strConnection = "Server = '" & strAuxServer & "'; Port=" & strAuxPort & "; Initial Catalog = '" & strDataBase & "'; User Id = '" &
-                         strUser & "'; Password = '" & strPassword & "'; Connect Timeout= " & intConnectionTimeout
+                strConnection = strConnectionString
             End If
-
 
             'Create Connection
             objSqlConnection = New MySqlConnection(strConnection)
@@ -108,6 +119,7 @@ Friend Class DataBase_MySql
             Throw New DataBaseException(ex)
         End Try
     End Sub
+
     Public Overrides Sub sbClose() Implements IDataBase.sbClose
         Try
             If objSqlConnection Is Nothing = False Then

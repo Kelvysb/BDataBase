@@ -53,6 +53,14 @@ Friend Class DataBase_Postgre
                     ByVal p_strPassword As String, p_intId As Integer, p_intConnectionTimeout As Integer)
         Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
     End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String)
+        Call MyBase.New(p_strConnectionString)
+    End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String, p_intId As Integer)
+        Call MyBase.New(p_strConnectionString, p_intId)
+    End Sub
 #End Region
 
 #Region "Functions and Subroutines"
@@ -76,25 +84,31 @@ Friend Class DataBase_Postgre
                 End If
             End If
 
-            strAuxPort = ""
-            strAuxServer = ""
-            If strServer.Contains(",") = True Then
-                strAuxServer = strServer.Split(",")(0)
-                strAuxPort = strServer.Split(",")(1)
-            End If
 
-            If strServer.Contains(":") = True And strAuxServer.Trim = "" Then
-                strAuxServer = strServer.Split(":")(0)
-                strAuxPort = strServer.Split(":")(1)
-            End If
+            If strConnectionString.Equals("") Then
+                strAuxPort = ""
+                strAuxServer = ""
+                If strServer.Contains(",") = True Then
+                    strAuxServer = strServer.Split(",")(0)
+                    strAuxPort = strServer.Split(",")(1)
+                End If
 
-            If strAuxServer.Trim = "" Then
-                strConnection = "Server=" & strServer & ";Database=" & strDataBase & ";User Id=" &
+                If strServer.Contains(":") = True And strAuxServer.Trim = "" Then
+                    strAuxServer = strServer.Split(":")(0)
+                    strAuxPort = strServer.Split(":")(1)
+                End If
+
+                If strAuxServer.Trim = "" Then
+                    strConnection = "Server=" & strServer & ";Database=" & strDataBase & ";User Id=" &
                          strUser & ";Password=" & strPassword & ";Timeout=" & intConnectionTimeout
+                Else
+                    strConnection = "Server=" & strAuxServer & ";Port=" & strAuxPort & ";Database=" & strDataBase & ";User Id=" &
+                         strUser & ";Password=" & strPassword & ";Timeout=" & intConnectionTimeout
+                End If
             Else
-                strConnection = "Server=" & strAuxServer & ";Port=" & strAuxPort & ";Database=" & strDataBase & ";User Id=" &
-                         strUser & ";Password=" & strPassword & ";Timeout=" & intConnectionTimeout
+                strConnection = strConnectionString
             End If
+
 
             'Create Connection
             objSqlConnection = New NpgsqlConnection(strConnection)
@@ -106,6 +120,9 @@ Friend Class DataBase_Postgre
             Throw New DataBaseException(ex)
         End Try
     End Sub
+
+
+
     Public Overrides Sub sbClose() Implements IDataBase.sbClose
         Try
             If objSqlConnection Is Nothing = False Then

@@ -52,6 +52,14 @@ Friend Class DataBase_MSSql
                     ByVal p_strPassword As String, p_intId As Integer, p_intConnectionTimeout As Integer)
         Call MyBase.New(p_strServer, p_strDataBase, p_strUser, p_strPassword, p_intId, p_intConnectionTimeout)
     End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String)
+        Call MyBase.New(p_strConnectionString)
+    End Sub
+
+    Friend Sub New(ByVal p_strConnectionString As String, p_intId As Integer)
+        Call MyBase.New(p_strConnectionString, p_intId)
+    End Sub
 #End Region
 
 #Region "Functions and Subroutines"
@@ -73,8 +81,12 @@ Friend Class DataBase_MSSql
                 End If
             End If
 
-            strConnection = "Server = '" & strServer & "'; Initial Catalog = '" & strDataBase & "'; User Id = '" &
+            If strConnectionString.Equals("") Then
+                strConnection = "Server = '" & strServer & "'; Initial Catalog = '" & strDataBase & "'; User Id = '" &
                          strUser & "'; Password = '" & strPassword & "'; Connect Timeout= " & intConnectionTimeout
+            Else
+                strConnection = strConnectionString
+            End If
 
             'Create Connection
             objSqlConnection = New SqlClient.SqlConnection(strConnection)
@@ -86,6 +98,7 @@ Friend Class DataBase_MSSql
             Throw New DataBaseException(ex)
         End Try
     End Sub
+
     Public Overrides Sub sbClose() Implements IDataBase.sbClose
         Try
             If objSqlConnection Is Nothing = False Then
